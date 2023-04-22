@@ -1,0 +1,23 @@
+name: repost
+on:
+  schedule:
+    - cron: '30 14 * * *'
+  workflow_dispatch:
+permissions: write-all
+jobs:
+  repost:
+    name: bsky-card-reminder
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: repost
+        run: |
+          ls -l
+          chmod 777 atr
+          ls -l
+          ./atr start
+          ./atr start -u nikolat.bsky.social -p ${{ secrets.BLUESKY_PASSWORD }}
+          ./atr t
+          ./atr repost bafyreidpy5ef3ksegapieby2rvvy3nky2kk44vwndduxbhoitstzyzwpyi -u "at://did:plc:656uaefudfh7ll6leflsi4xo/app.bsky.feed.post/3jt44q4sko42a"
